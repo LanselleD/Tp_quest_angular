@@ -1,0 +1,86 @@
+<div class="card mt-3">
+    <div class="card-header bg-primary text-white display-6">Liste des formateurs</div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Identifiant</th>
+                    <th>Version</th>
+                    <th>Civilité</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Email</th>
+                    <th>Externe</th>
+                    <th>Expérience</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let forma of list()">
+                    <td>{{forma.id}}</td>
+                    <td>{{forma.version}}</td>
+                    <td>{{forma.civilite}}</td>
+                    <td>{{forma.nom | uppercase}}</td>
+                    <td>{{forma.prenom }}</td>
+                    <td>{{forma.email}}</td>
+                    <td>{{forma.externe | yesNo }} </td>
+                    <td>{{forma.experience}} an(s)</td>
+                    <td>
+                        <div class="btn-group btn-group-sm">
+                            <a class="btn btn-primary" (click)="edit(forma.id)"><i
+                                    class="bi bi-pencil-square"></i></a>
+                            <a class="btn btn-danger" (click)="remove(forma.id)"><i class="bi bi-trash"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+    <div class="card-footer">
+        <a class="btn btn-success btn-lg" (click)="add()"><i
+            class="bi bi-plus-square"></i></a>
+    </div>
+</div>
+
+<div class="card mt-3" *ngIf="formFormateur">
+    <div class="card-header bg-primary text-white display-6">Edition d'une filière</div>
+    <div class="card-body">
+        <div class="form-group">
+            <label for="id">Identifiant:</label> <input type="number" class="form-control" id="id" name="id" [(ngModel)]="formFormateur.id" readonly/>
+        </div>
+        <div class="form-group">
+            <label for="version">Version:</label> <input type="number" class="form-control" id="version" name="version" [(ngModel)]="formFormateur.version" readonly />
+        </div>
+        <div class="form-group">
+            <label for="civilite">Civilité:</label>
+            <select class="form-control" id="civilite" name="civilite" [(ngModel)]="formFormateur.civilite">
+                <option value="">Veuillez sélectionner une civilité</option>
+                <option *ngFor="let item of listCivilites() | keyvalue" [value]="item.key">{{item.value}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="nom">Nom:</label> <input type="text" class="form-control" id="nom" name="nom" [(ngModel)]="formFormateur.nom" />
+        </div>
+        <div class="form-group">
+            <label for="prenom">Prénom:</label> <input type="text" class="form-control" id="prenom" name="prenom" [(ngModel)]="formFormateur.prenom" />
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label> <input type="email" class="form-control" id="email" name="email" [(ngModel)]="formFormateur.email" />
+        </div>
+        <div class="form-group">
+            <label for="externe">Externe:</label> <input type="boolean" class="form-control" id="externe" name="externe" [(ngModel)]="formFormateur.externe" />
+        </div>
+        <div class="form-group">
+            <label for="expérience">Expérience:</label> <input type="number" class="form-control" id="experience" name="experience" [(ngModel)]="formFormateur.experience" />
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="btn-group btn-group-lg float-right">
+            <a class="btn btn-success" (click)="save()"><i class="bi bi-check-square-fill"></i></a>
+            <a class="btn btn-warning" (click)="cancel()"><i class="bi bi-backspace-fill"></i></a>
+        </div>
+    </div>
+</div>
+
